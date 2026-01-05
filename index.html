@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProScout AI | Precision Player Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>ProScout<span>AI</span></h1>
+            </div>
+            <nav id="sidebar-nav">
+                <a href="#" class="nav-item active" data-view="console-view">
+                    <span class="icon">📊</span> Scouting Console
+                </a>
+                <a href="#" class="nav-item" data-view="market-view">
+                    <span class="icon">📈</span> Market Data
+                </a>
+                <a href="#" class="nav-item" data-view="insight-view">
+                    <span class="icon">☄️</span> Comet AI Insight
+                </a>
+                <a href="#" class="nav-item" data-view="history-view">
+                    <span class="icon">📜</span> Scouting History
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="glass" style="padding: 1rem; border-radius: 12px;">
+                    <p style="font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">
+                        Cloud Status</p>
+                    <p id="cloud-status" style="font-size: 0.8rem; margin-top: 4px;">Synchronized (Comet)</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- VIEW 1: SCOUTING CONSOLE -->
+            <div id="console-view" class="content-view">
+                <header class="top-bar">
+                    <div class="header-left">
+                        <h2>Advanced Comparison</h2>
+                        <p class="subtitle">Global Analytics: LaLiga, MLS, ISL, AFC & International</p>
+                    </div>
+                    <div class="selection-controls">
+                        <div class="input-group">
+                            <label>Target Role</label>
+                            <select id="position-select">
+                                <option value="Goalkeeper">Goalkeeper</option>
+                                <option value="Defender">Defender</option>
+                                <option value="Midfielder">Midfielder</option>
+                                <option value="Forward">Forward</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Tactical System</label>
+                            <select id="style-select">
+                                <option value="High Pressing">High Pressing</option>
+                                <option value="Tiki-Taka">Tiki-Taka</option>
+                                <option value="Direct Counter">Direct Counter</option>
+                            </select>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="selection-area">
+                    <div class="player-search-container">
+                        <div class="glass search-card">
+                            <div class="search-input-wrapper">
+                                <input type="text" id="p1-search" placeholder="Search primary player...">
+                                <div class="search-results hidden" id="p1-results"></div>
+                            </div>
+                            <div id="p1-selection-preview" class="selection-preview">
+                                <p style="text-align: center; color: var(--text-muted);">Awaiting Primary selection...
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="vs-badge">VS</div>
+
+                        <div class="glass search-card">
+                            <div class="search-input-wrapper">
+                                <input type="text" id="p2-search" placeholder="Search comparison player...">
+                                <div class="search-results hidden" id="p2-results"></div>
+                            </div>
+                            <div id="p2-selection-preview" class="selection-preview">
+                                <p style="text-align: center; color: var(--text-muted);">Awaiting Comparison
+                                    selection...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-bar">
+                        <button id="analyze-btn" class="primary-btn" disabled>Trigger Multi-Source Analysis</button>
+                    </div>
+                </section>
+
+                <div id="comparison-dashboard" class="dashboard-grid hidden">
+                    <div class="glass wide-card" style="padding: 2.5rem;">
+                        <div class="stat-card-header">
+                            <div>
+                                <h3>Statistical Benchmark</h3>
+                                <p class="subtitle">Normalized percentile ranks</p>
+                            </div>
+                        </div>
+                        <div id="stats-comparison-root"></div>
+                    </div>
+                    <div class="glass" style="padding: 2rem;" id="p1-insights-block"></div>
+                    <div class="glass" style="padding: 2rem;" id="p2-insights-block"></div>
+                    <div class="glass wide-card ai-match-container">
+                        <div style="position: relative; z-index: 1;">
+                            <h3 style="color: var(--primary); margin-bottom: 1rem;">☄️ ProScout AI Match Verdict</h3>
+                            <div id="ai-verdict-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: MARKET DATA -->
+            <div id="market-view" class="content-view hidden">
+                <header class="top-bar">
+                    <h2>Market Data Analytics</h2>
+                </header>
+                <div class="dashboard-grid">
+                    <div class="glass wide-card" id="market-summary-root" style="padding: 2.5rem;">
+                        <p style="color:var(--text-muted);">Select players in Console to view market trends.</p>
+                    </div>
+                    <div class="glass" id="valuation-grid-p1"></div>
+                    <div class="glass" id="valuation-grid-p2"></div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: COMET AI INSIGHT -->
+            <div id="insight-view" class="content-view hidden">
+                <header class="top-bar">
+                    <h2>Comet AI Insight</h2>
+                </header>
+                <div class="glass wide-card" style="padding: 2.5rem;">
+                    <div id="deep-insight-root">
+                        <p style="color:var(--text-muted);">Trigger "Multi-Source Analysis" in Console for multi-tab
+                            contextual insights.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 4: SCOUTING HISTORY -->
+            <div id="history-view" class="content-view hidden">
+                <header class="top-bar">
+                    <h2>Scouting History</h2>
+                </header>
+                <div class="glass wide-card" style="padding: 2.5rem;">
+                    <div id="history-list-root">
+                        <p style="color:var(--text-muted);">No scouting sessions recorded yet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Overlay (Universal) -->
+            <div id="loading-overlay" class="loading-overlay hidden">
+                <div class="loader-stack">
+                    <div class="pulse-circle"></div>
+                    <p id="loading-status"
+                        style="margin-top: 2rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">
+                        Initializing...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
